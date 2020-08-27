@@ -9,3 +9,7 @@ void function (fn2) {
   var num = 100;
   fn2(20)
 }(fn1)
+const obj = {a:1};
+const func = () => {
+  console.log('ppp');
+};
