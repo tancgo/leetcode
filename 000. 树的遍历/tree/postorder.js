@@ -32,4 +32,27 @@ const postorder = (node) => {
   }
 };
 
+// 颜色标记法
+var postorderTraversal = function (root) {
+  const [WHITE, GREEN] = [0, 1];
+  const stack = [[WHITE, root]];
+  const result = [];
+
+  while (stack.length) {
+    const [color, node] = stack.pop();
+
+    if (!node) continue;
+    // 后序遍历是左右根的顺序
+    if (color === WHITE) {
+      stack.push([GREEN, node]);
+      stack.push([WHITE, node.right]);
+      stack.push([WHITE, node.left]);
+    } else {
+      result.push(node.val);
+    }
+  }
+
+  return result;
+};
+
 postorder(bt);
