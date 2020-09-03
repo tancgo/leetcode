@@ -52,7 +52,7 @@ class MinHeap {
 
     // 删除堆顶并返回
     pop() {
-        if (this.size() === 1) return this.heap.shift();
+        if (this.size() === 1) return this.heap.shift(); // length为1时直接返回 否则会陷入死循环
         const top = this.heap[0];
         this.heap[0] = this.heap.pop();
         this.shiftDown(0);
@@ -69,6 +69,7 @@ class MinHeap {
     }
 }
 
+// lists: [ [1,3,4], [2,6], [4,5] ]
 var mergeKLists = function (lists) {
     const res = new ListNode(0);
     let pointer = res;
@@ -76,14 +77,24 @@ var mergeKLists = function (lists) {
 
     lists.forEach(item => {
         // 把链表当成heap的一个节点
-        if (item) heap.insert(item);
+        if (item) heap.insert(item); // 一定要检测链表是否存在，例如[[]]
     })
 
     while (heap.size()) {
         const node = heap.pop();
-        pointer.next = node;
-        pointer = pointer.next;
-        if (node.next) heap.insert(node.next);
+        pointer.next = node; // 将弹出的元素链接在链表上
+        pointer = pointer.next; // 将指针移动到下一个节点上
+        if (node.next) heap.insert(node.next); // node是子链表(比如[1,3,4])，则将node.next([3,4])传入
+        /**
+         * MinHeap { heap: [ [1,3,4], [2,6], [4,5] ] }
+           MinHeap { heap: [ [2,6], [4,5], [3,4] ] }
+           MinHeap { heap: [ [3,4], [4,5], [6] ] }
+           MinHeap { heap: [ [4,5], [6], [4] ] }
+           MinHeap { heap: [ [4], [6], [5] ] }
+           MinHeap { heap: [ [5], [6] ] }
+           MinHeap { heap: [ [6] ] }
+           MinHeap { heap: [] }
+         */
     }
 
     return res.next;
