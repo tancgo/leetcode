@@ -72,3 +72,40 @@ var climbStairs = function (n) {
 
   return countNumber(n, 0);
 };
+
+// 上面的方法还可以进一步优化逻辑
+/**
+ *
+ *                  5
+ *          3              4
+ *       1    2        2       3
+ *   0(-)   0   1   0(-)  1  1   2
+ *                               0  1
+ * 经过多个树的规律可以看出，加上了限制条件后实际上是删除了某些子树,例如：
+ * f(5) = f(2) + f(4) 删除了节点3的左子树
+ * f(4) = f(1) + f(3) 删除了节点2的左子树
+ * 最后的结果f(5) = f(1) + f(2) + f(3)
+ * 规律为f(n) = f(n-1) + f(n - 3)
+ */
+var climbStairs = function (n) {
+  const dp = [1, 1, 2];
+
+  for (let i = 3; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 3];
+  }
+
+  return dp[n];
+};
+
+// 上一方法的空间复杂度优化
+var climbStairs = function (n) {
+  let pre = 1;
+  let mid = 1;
+  let cur = 2;
+
+  for (let i = 3; i <= n; i++) {
+    [pre, mid, cur] = [mid, pre + mid, cur + pre];
+  }
+
+  return cur;
+};
