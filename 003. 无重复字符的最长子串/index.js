@@ -4,15 +4,6 @@ var lengthOfLongestSubstring = function (s) {
   let max = 0;
 
   for (i = 0; i < s.length; i++) {
-    // if (!arr.includes(s[i])) {
-    //   arr.push(s[i]);
-    //   max = Math.max(arr.length, max);
-    // } else {
-    //   arr.splice(0, arr.indexOf(s[i]) + 1);
-    //   arr.push(s[i]);
-    //   max = Math.max(arr.length, max);
-    // }
-
     if (arr.includes(s[i])) {
       arr.splice(0, arr.indexOf(s[i]) + 1);
     }
