@@ -15,6 +15,21 @@ var lengthOfLongestSubstring = function (s) {
   return max;
 };
 
+// 双指针记录下标
+var lengthOfLongestSubstring = function (s) {
+  let max = 0;
+
+  for (let i = 0, j = 0; j < s.length; j++) {
+    const index = s.substring(i, j).indexOf(s[j]);
+    if (index !== -1) {
+      i = index + 1 + i; // index 是子串的下标  所以还需要加i
+    }
+    max = Math.max(max, j - i + 1);
+  }
+
+  return max;
+};
+
 // Map进行优化，双指针滑动窗口记录开始结束下标
 var lengthOfLongestSubstring1 = function (s) {
   let map = new Map();
