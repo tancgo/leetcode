@@ -3,39 +3,40 @@
 // 出现s2中的元素不在s1中 或者map中的元素x大于needs中元素x出现的次数则更新left指针
 var checkInclusion = function (s1, s2) {
   const needs = new Map();
-  const map = new Map();
-  let left = 0,
-    right = 0,
-    size = s1.length;
+  const exists = new Map();
+  let left = 0;
+  let right = 0;
+  let size = s1.length;
 
   for (let s of s1) {
     needs.set(s, (needs.get(s) || 0) + 1);
   }
 
   while (right < s2.length && right - left !== size) {
-    let cur = s2[right];
-    let curCount = (map.get(cur) || 0) + 1;
+    const cur = s2[right];
+    let curCount = (exists.get(cur) || 0) + 1;
 
-    // cur不在needs中
     if (!needs.has(cur)) {
+      exists.clear();
       right++;
       left = right;
-      map.clear();
       continue;
     }
 
-    // cur出现的次数大于needs需要的次数
+    // cur出现的次数大于needs需要的次数，则需要将left更新至cur第一次出现的下一个点
     while (needs.get(cur) < curCount && left < right) {
-      const leftcur = s2[left];
-      if (leftcur === cur) {
+      const leftCur = s2[left];
+      if (leftCur === cur) {
         curCount--;
       }
-      map.set(leftcur, map.get(leftcur) - 1);
+
+      exists.set(leftCur, exists.get(leftCur) - 1);
       left++;
     }
 
-    map.set(cur, curCount);
+    exists.set(cur, curCount);
     right++;
   }
+
   return right - left === size;
 };
