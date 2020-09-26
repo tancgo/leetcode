@@ -11,6 +11,8 @@ var multiply = function (num1, num2) {
       const sum = result[i + j + 1] + multi;
 
       result[i + j + 1] = sum % 10;
+
+      // x | 0 按位操作  忽略掉小数 相当于Math.floor()
       result[i + j] += (sum / 10) | 0;
     }
   }
