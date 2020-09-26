@@ -13,7 +13,10 @@ var multiply = function (num1, num2) {
       result[i + j + 1] = sum % 10;
 
       // x | 0 按位操作  忽略掉小数 相当于Math.floor()
+      // ~ 第一次按位取反时去掉了小数点后的，第二次再取反就达到了向下取整的效果
       result[i + j] += (sum / 10) | 0;
+      // result[i + j] += ~~(sum / 10);
+      // result[i + j] += Math.floor(sum / 10);
     }
   }
 
