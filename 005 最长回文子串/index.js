@@ -33,3 +33,51 @@ var longestPalindrome = function (s) {
 
   return s.substring(start, start + maxLen);
 };
+
+// 解法二 动态规划
+// 测试用例 "babad"
+/**
+ * [
+     [true, false, true, false, false],
+     [null, true, false, true, false],
+     [null, null, true, false, false],
+     [null, null, null, true, false],
+     [null, null, null, null, true],
+];
+ */
+
+var longestPalindrome = function (s) {
+  const len = s.length;
+  if (len < 2) return s;
+
+  let maxLen = 1;
+  let start = 0;
+
+  const dp = Array.from(Array(len), () => Array(len));
+
+  for (let i = 0; i < len; i++) {
+    dp[i][i] = true;
+  }
+
+  for (let j = 1; j < len; j++) {
+    for (let i = 0; i < j; i++) {
+      if (s[i] !== s[j]) {
+        dp[i][j] = false;
+      } else {
+        // cbbd这种情况需要判断一下 不然dp[i][j] = dp[i + 1][j - 1]=dp[2][1] = null
+        if (j - i < 3) {
+          dp[i][j] = true;
+        } else {
+          dp[i][j] = dp[i + 1][j - 1];
+        }
+      }
+
+      if (dp[i][j] && j - i + 1 > maxLen) {
+        maxLen = j - i + 1;
+        start = i;
+      }
+    }
+  }
+
+  return s.substring(start, start + maxLen);
+};
