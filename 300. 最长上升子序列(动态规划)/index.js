@@ -62,3 +62,25 @@ var lengthOfLIS = function (nums) {
 
   return tail.length;
 };
+
+// 时隔一个月之后重新做
+var lengthOfLIS = function (nums) {
+  const len = nums.length;
+  if (!len) return 0;
+  const dp = new Array(len).fill(1);
+  let max = 1;
+
+  for (let i = 1; i < len; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        // console.log(nums[i], nums[j], flag)
+        // flag = Math.max(dp[j], flag)
+        dp[i] = Math.max(dp[i], dp[j] + 1);
+        max = Math.max(dp[i], max);
+      }
+    }
+  }
+
+  // console.log(dp)
+  return max;
+};
