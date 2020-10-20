@@ -9,6 +9,18 @@ var climbStairs = function (n) {
   return dp[n];
 };
 
+// 同上 本质上仍然是是斐波那契数列
+var climbStairs = function (n) {
+  // if (n < 3) return n;
+  const dp = [1, 2];
+
+  for (let i = 2; i < n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n - 1];
+};
+
 // 对上面的方法做优化，只记住两个值，当前值和上一个值
 var climbStairs = function (n) {
   let pre = 1;
