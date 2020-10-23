@@ -17,3 +17,20 @@ var thousandSeparator = function (n) {
   // console.log(queue)
   return queue.reverse().join("");
 };
+
+// 数位分离
+var thousandSeparator = function (n) {
+  if (!n) return "0";
+  let count = 0;
+  let res = "";
+
+  while (n) {
+    const cur = n % 10;
+    res += cur;
+    n = (n / 10) | 0;
+    count++;
+    if (count % 3 === 0 && n) res += ".";
+  }
+
+  return res.split("").reverse().join("");
+};
