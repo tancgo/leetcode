@@ -11,7 +11,7 @@ var thousandSeparator = function (n) {
     // console.log(m[i], i+1, !(count% 3))
     queue.push(m[i]);
 
-    if (!(count % 3) && count < len) queue.push(".");
+    if (!(count % 3) && count < len) queue.push(",");
   }
 
   // console.log(queue)
@@ -19,7 +19,7 @@ var thousandSeparator = function (n) {
 };
 
 // 数位分离
-var thousandSeparator = function (n) {
+var thousandSeparator1 = function (n) {
   if (!n) return "0";
   let count = 0;
   let res = "";
@@ -34,3 +34,6 @@ var thousandSeparator = function (n) {
 
   return res.split("").reverse().join("");
 };
+
+
+console.log(thousandSeparator(123444))
