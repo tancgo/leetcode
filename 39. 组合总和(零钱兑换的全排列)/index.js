@@ -9,8 +9,7 @@ var combinationSum = function (candidates, target) {
 
     // console.log(temp, 'ans')
     if (target === 0) {
-      // console.log(temp)
-      res[temp.length] = temp;
+      res.push(temp);
       return;
     }
 
