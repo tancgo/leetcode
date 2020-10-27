@@ -7,16 +7,41 @@
 
 const coins = [1, 5, 10, 25];
 
-// class MiniCoinChange {
-//   constructor(conis) {
-//     this.conis = conis;
-//   }
-//   makeChange(n) {
-//   }
-// }
+class MiniCoinChange {
+  constructor(coins) {
+    this.coins = coins;
+  }
+  makeChange(n) {
+    let res = [];
 
-// const miniCoinChange = new MiniCoinChange(coins);
-// console.log(miniCoinChange.makeChange(36));
+    const dfs = (target, temp, begin) => {
+      if (target < 0) return;
+
+      if (target === 0) {
+        // 比较temp的长度， 如果长度小于已有长度(res为[]时设置为Infinity)时更新res，
+        if (temp.length < (res.length || Infinity)) {
+          res = temp.slice();
+        }
+      }
+
+      for (let i = begin; i < this.coins.length; i++) {
+        const cur = this.coins[i];
+        temp.push(cur);
+
+        dfs(target - cur, temp, i);
+
+        temp.pop();
+      }
+    };
+
+    dfs(n, [], 0);
+
+    return res;
+  }
+}
+
+const miniCoinChange = new MiniCoinChange(coins);
+console.log(miniCoinChange.makeChange(36));
 
 /**
  * @param {number[]} candidates
@@ -51,7 +76,7 @@ var combinationSum = function (candidates, target) {
 
   dfs(target, [], 0);
 
-  return res[min]
+  return res[min];
 };
 
-console.log(combinationSum([1, 5, 10, 25], 36));
+// console.log(combinationSum([1, 5, 10, 25], 36));
