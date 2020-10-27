@@ -31,3 +31,31 @@ var combinationSum = function (candidates, target) {
   console.log(res);
   return res;
 };
+
+// 另一种回溯方法  更直观易理解
+var combinationSum1 = function (candidates, target) {
+  const res = [];
+
+  const dfs = (target, temp, begin) => {
+    if (target < 0) return;
+
+    if (target === 0) {
+      res.push(temp.slice());
+      return;
+    }
+
+    for (let i = begin; i < candidates.length; i++) {
+      // 加入本次选择
+      temp.push(candidates[i]);
+      // 往下继续选择，同时target减去当前数字
+      dfs(target - candidates[i], temp, i);
+      // 撤销上一步的选择
+      temp.pop();
+    }
+  };
+
+  dfs(target, [], 0);
+
+  // console.log(res);
+  return res;
+};
