@@ -32,3 +32,33 @@ var restoreIpAddresses = function (s) {
 
   return res;
 };
+
+//  练习回溯算法时  第二次做该题
+var restoreIpAddresses = function (s) {
+  const res = [];
+
+  function dfs(temp, begin) {
+    if (temp.length === 4 && begin < s.length) return;
+
+    if (temp.length === 4 && begin === s.length) {
+      res.push(temp.join("."));
+
+      return;
+    }
+
+    for (let i = 1; i < 4; i++) {
+      const cur = s.slice(begin, begin + i);
+
+      // 三种情况需要中断 1：0x 0xx; 2：>255; 3: begin + i 超出边界
+      if ((cur[0] === "0" && cur[1]) || cur > 255 || !cur) return;
+
+      temp.push(cur);
+      dfs(temp, i + begin);
+      temp.pop();
+    }
+  }
+
+  dfs([], 0);
+
+  return res;
+};
