@@ -36,8 +36,8 @@ const maxDepth = (root) => {
   let depth = 1;
 
   while (queue.length) {
-     // 当前层的节点个数
-     const levelSize = queue.length; // 存下来， 否则for循环中该值会变化    
+    // 当前层的节点个数
+    const levelSize = queue.length; // 存下来， 否则for循环中该值会变化
     for (i = 0; i < levelSize; i++) {
       // 当前出列的节点
       const cur = queue.shift();
@@ -53,3 +53,25 @@ const maxDepth = (root) => {
   return depth;
 };
 
+// 二次重做采用了回溯的思想，比第一次做时候参考的dfs 复杂了一点
+var maxDepth = function (root) {
+  let max = 0;
+
+  function dfs(node, temp) {
+    if (node === null) return 0;
+
+    temp.push(node.val);
+    if (node.left === null && node.right === null) {
+      max = Math.max(max, temp.length);
+    }
+
+    if (node.left) dfs(node.left, temp);
+    if (node.right) dfs(node.right, temp);
+
+    temp.pop();
+  }
+
+  dfs(root, []);
+
+  return max;
+};
