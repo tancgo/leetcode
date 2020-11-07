@@ -75,3 +75,13 @@ var maxDepth = function (root) {
 
   return max;
 };
+
+// 递归
+var maxDepth = function (root) {
+  if (root === null) return 0;
+
+  const leftMaxDepth = maxDepth(root.left);
+  const rightMaxDepth = maxDepth(root.right);
+
+  return Math.max(leftMaxDepth, rightMaxDepth) + 1;
+};
